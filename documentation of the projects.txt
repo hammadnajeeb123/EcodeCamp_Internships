@@ -1,0 +1,136 @@
+
+```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+
+project no 2 : Twitter Sentiment Analysis with Logistic Regression
+
+Summary:
+
+This Python script performs sentiment analysis on Twitter data, classifying tweets as positive or negative. It utilizes the Kaggle API to download a sentiment dataset ("sentiment140"), performs data cleaning and preprocessing, trains a Logistic Regression model, and evaluates its accuracy. Finally, it saves the trained model for future predictions.
+
+Code Breakdown (within 300 words):
+
+Kaggle API Setup (Lines 1-6):
+
+Sets up the Kaggle API by creating a directory (~/.kaggle) and copying your Kaggle API token (kaggle.json) to it (replace these lines with your actual setup).
+Downloads the sentiment140 dataset using !kaggle datasets download -d kazanova/sentiment140.
+Extracts the downloaded ZIP file using zipfile.
+Data Loading and Preprocessing (Lines 7-46):
+
+Loads the CSV data into a Pandas DataFrame (twitter_data).
+Corrects column names (column_names) for proper reading.
+Checks for missing values (twitter_data.isnull().sum()).
+Examines the distribution of target values (positive/negative tweets) using value_counts().
+Replaces target labels (0 and 4) with binary values (0 for negative, 1 for positive).
+Defines a stemming function to process text:
+Removes non-alphabetical characters and converts to lowercase.
+Splits words and applies stemming using PorterStemmer.
+Removes stop words (common words like "the", "a") and joins stemmed words back into a string.
+Applies stemming to the "text" column and stores the result in a new column "stemmed_content".
+Data Splitting and Feature Engineering (Lines 47-62):
+
+Separates features (text content - "stemmed_content") and target labels ("target") into separate variables (x and y).
+Splits data into training and testing sets using train_test_split. Stratification ensures proportional class distribution in both sets.
+Prints shapes of datasets to verify splitting.
+Model Training (Lines 63-68):
+
+Creates a TF-IDF vectorizer (TfidfVectorizer) to convert text data into numerical features.
+Transforms training and testing data using the fitted vectorizer (vectorizer.fit_transform).
+Logistic Regression Model (Lines 69-76):
+
+Creates a Logistic Regression model (LogisticRegression) with a maximum of 1000 iterations.
+Trains the model on the transformed training data (model.fit(x_train,y_train)).
+Model Evaluation (Lines 77-86):
+
+Calculates accuracy scores for both training and testing data using accuracy_score.
+Prints the accuracy scores to evaluate model performance.
+Model Saving (Lines 87-90):
+
+Uses pickle to save the trained model as "trained_model.sav".
+Prediction with Saved Model (Lines 91-102):
+
+Loads the saved model using pickle.load.
+Selects a sample tweet from the test set for prediction (x_new).
+Predicts the sentiment of the sample tweet using the model (model.predict(x_new)).
+Interprets the prediction (0: negative, 1: positive) and prints the sentiment.
+What You Learned:
+
+You learned how to use the Kaggle API to download datasets for analysis.
+You explored data cleaning and preprocessing techniques like handling missing values, label encoding, and text stemming.
+You grasped the concept of TF-IDF vectorization to convert text data into numerical features suitable for machine learning models.
+You implemented a Logistic Regression model to classify text sentiment.
+You evaluated model performance using accuracy scores and learned to save models for future use.
+Note:
+
+Replace the Kaggle API setup lines with your actual configuration.
+This code provides a basic example. Consider exploring more advanced techniques like hyperparameter tuning and other machine learning models for sentiment analysis tasks.
+
+
+
+Purpose:
+
+This Python script is designed to perform sentiment analysis on Twitter data, classifying tweets as positive or negative. It utilizes the Kaggle API to download a sentiment dataset ("sentiment140"), performs data cleaning and preprocessing, trains a Logistic Regression model, and evaluates its accuracy. Finally, it saves the trained model for future predictions.
+
+Methodology:
+
+Data Acquisition:
+
+The Kaggle API is used to download the "sentiment140" dataset, which contains labeled tweets with sentiment polarity.
+Data Preprocessing:
+
+The downloaded data is loaded into a Pandas DataFrame.
+Column names are corrected to ensure accurate interpretation.
+Missing values are checked and handled (if necessary).
+The target labels are converted to binary values (0: negative, 1: positive) for consistency.
+Text data is preprocessed using stemming to reduce words to their root form, removing stop words (common words like "the", "a") and handling non-alphabetical characters.
+Feature Engineering:
+
+The preprocessed text data is converted into numerical features using TF-IDF vectorization. This technique assigns weights to words based on their frequency and importance within the corpus.
+Model Training:
+
+A Logistic Regression model is trained on the vectorized training data. This model is suitable for binary classification tasks like sentiment analysis.
+Model Evaluation:
+
+The trained model's performance is evaluated on the testing data using accuracy score. This metric measures the proportion of correctly classified tweets.
+Model Saving:
+
+The trained model is saved for future use, allowing for predictions on new, unseen data.
+Code Structure:
+
+The code is organized into the following sections:
+
+Data Acquisition: Downloads the dataset using the Kaggle API.
+Data Preprocessing: Cleans and prepares the data for analysis.
+Feature Engineering: Converts text data into numerical features.
+Model Training: Trains the Logistic Regression model.
+Model Evaluation: Evaluates the model's performance.
+Model Saving: Saves the trained model for future use.
+Key Libraries:
+
+pandas: For data manipulation and analysis.
+numpy: For numerical operations.
+re: For regular expressions used in text preprocessing.
+nltk: Natural Language Toolkit for stemming and stop word removal.
+sklearn: Scikit-learn for machine learning tasks, including TF-IDF vectorization, logistic regression, and model evaluation.
+Applications:
+
+Sentiment Analysis: Can be used to analyze public opinion on various topics, brands, or products.
+Social Media Monitoring: Helps track sentiment trends and identify potential issues or opportunities.
+Customer Feedback Analysis: Can be used to understand customer satisfaction and identify areas for improvement.
+Limitations:
+
+Sentiment Complexity: Sentiment analysis can be challenging due to nuances in language, sarcasm, and context.
+Data Quality: The accuracy of the model depends on the quality and quantity of the training data.
+Model Limitations: Logistic Regression may not capture complex relationships in the data, especially for highly nuanced sentiment analysis.
+Further Improvements:
+
+Hyperparameter Tuning: Experiment with different parameters in the Logistic Regression model to optimize performance.
+Ensemble Methods: Consider using ensemble techniques like Random Forest or Gradient Boosting for improved accuracy.
+Deep Learning: Explore deep learning models like Recurrent Neural Networks (RNNs) or Transformers for more complex text understanding.
+Contextual Understanding: Incorporate contextual information (e.g., time, location) to improve sentiment analysis accuracy
+
+
+
+*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************
